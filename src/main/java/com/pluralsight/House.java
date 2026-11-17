@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 //! Extend establishes the inheritance relationship
 public class House extends Asset {
@@ -74,7 +75,7 @@ public class House extends Asset {
                 .multiply(BigDecimal.valueOf(getSquareFoot()))
                 .add(new BigDecimal("0.25")
                         .multiply(BigDecimal.valueOf(getLotSize())));
-        return houseValue;
+        return houseValue.setScale(2, RoundingMode.HALF_UP);
     }
 
 }

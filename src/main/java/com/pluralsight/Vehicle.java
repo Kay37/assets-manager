@@ -1,6 +1,7 @@
 package com.pluralsight;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.time.LocalDate;
 
 public class Vehicle extends Asset {
@@ -50,21 +51,15 @@ public class Vehicle extends Asset {
         BigDecimal vehicleValue = BigDecimal.ZERO;
         BigDecimal highMileageMultiplier = BigDecimal.valueOf(1.00);
         switch (vehicleAge) {
-            case 0, 1, 2, 3:
-                depreciationRate = BigDecimal.valueOf(0.03);
-                break;
-            case 4, 5, 6:
-                depreciationRate = BigDecimal.valueOf(0.06);
-                break;
-            case 7, 8, 9, 10:
-                depreciationRate = BigDecimal.valueOf(0.08);
-                break;
-            default:
+            case 0, 1, 2, 3 -> depreciationRate = BigDecimal.valueOf(0.03);
+            case 4, 5, 6 -> depreciationRate = BigDecimal.valueOf(0.06);
+            case 7, 8, 9, 10 -> depreciationRate = BigDecimal.valueOf(0.08);
+            default -> {
                 if (vehicleAge > 10) {
                     vehicleValue = BigDecimal.valueOf(1000.00);
-                    return vehicleValue;
+                    return vehicleValue.setScale(2,  RoundingMode.HALF_UP);
                 }
-
+            }
         }
         if (getOdometer() > 100000) {
             String reliableModelCheck = getMakeModel().toLowerCase();
@@ -79,7 +74,7 @@ public class Vehicle extends Asset {
                 .multiply(BigDecimal.valueOf(vehicleAge))
                 .multiply(getOriginalCost());
         vehicleValue = getOriginalCost().subtract(amountDepreciated).multiply(highMileageMultiplier);
-        return vehicleValue;
+        return vehicleValue.setScale(2, RoundingMode.HALF_UP);
     }
 
 }
