@@ -2,7 +2,7 @@ package com.pluralsight;
 
 import java.math.BigDecimal;
 
-public class Asset {
+public abstract class Asset {
 
     //! backing variables
     private String description;
@@ -42,8 +42,5 @@ public class Asset {
     }
 
     //! getValue returns originalCost but House & vehicle children values will be calculated differently.
-    public BigDecimal getValue() {
-        return originalCost;
-    }
-
+    public abstract BigDecimal getValue();
 }

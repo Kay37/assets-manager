@@ -7,6 +7,8 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
+        //! The issue is that we need to declare what the getValue() method should be for this asset.
+//        Asset assetTest = new Asset();
 
         ArrayList<Asset> assets = new ArrayList<>();
         //! House assets:
